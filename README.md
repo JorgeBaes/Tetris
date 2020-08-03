@@ -2,7 +2,7 @@
 
 This is a javascript tetris. You can make your pieces and play your own tetris
 
-## How to play
+## How to play it
 
 You have to download this folder, unzip it and open tetris.html
 
