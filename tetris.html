@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="css/tetris.css">
+    <link rel="shortcut icon" href="icon/pagicon.png">
+</head>
+<body>
+    <div>
+    </div>
+    <div class="popup-content" id="divToAddPiece">        
+        <div class="flexSelectors">
+            <div>
+                <span style="font-size: 40px; color: transparent; transition: 0.4s;" id="drawPieceText3x3">Draw your piece</span><br><br>
+                <div id="selector3x3" >
+                    <button id="piece3x3_0" class="squares3x3" onclick="changePiece3x3(0)"></button>
+                    <button id="piece3x3_1" class="squares3x3" onclick="changePiece3x3(1)"></button>
+                    <button id="piece3x3_2" class="squares3x3" onclick="changePiece3x3(2)"></button><br>
+                    <button id="piece3x3_3" class="squares3x3" onclick="changePiece3x3(3)"></button>
+                    <button id="piece3x3_4" class="squares3x3" onclick="changePiece3x3(4)"></button>
+                    <button id="piece3x3_5" class="squares3x3" onclick="changePiece3x3(5)"></button><br>
+                    <button id="piece3x3_6" class="squares3x3" onclick="changePiece3x3(6)"></button>
+                    <button id="piece3x3_7" class="squares3x3" onclick="changePiece3x3(7)"></button>
+                    <button id="piece3x3_8" class="squares3x3" onclick="changePiece3x3(8)"></button><br>
+                    <br>
+                    <svg id="addPiece3x3" onclick="addpiece3x3()" height="60px" viewBox="0 0 512 512" width="60px">
+                        <path
+                            d="m368 272h-224c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h224c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
+                        <path
+                            d="m256 384c-8.832031 0-16-7.167969-16-16v-224c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v224c0 8.832031-7.167969 16-16 16zm0 0" />
+                        <path
+                            d="m453.332031 512h-394.664062c-32.363281 0-58.667969-26.304688-58.667969-58.667969v-394.664062c0-32.363281 26.304688-58.667969 58.667969-58.667969h394.664062c32.363281 0 58.667969 26.304688 58.667969 58.667969v394.664062c0 32.363281-26.304688 58.667969-58.667969 58.667969zm-394.664062-480c-14.699219 0-26.667969 11.96875-26.667969 26.667969v394.664062c0 14.699219 11.96875 26.667969 26.667969 26.667969h394.664062c14.699219 0 26.667969-11.96875 26.667969-26.667969v-394.664062c0-14.699219-11.96875-26.667969-26.667969-26.667969zm0 0" />
+                    </svg>
+                </div>
+            </div>
+            <div>
+                <div style="margin: 10px auto 0px auto;">
+                    <span style="font-size: 50px; color: darkblue;">Make your own pieces</span><br>
+                    <span style="font-size:  40px; color: rgb(97, 0, 0);">Play your own Tetris</span><br><br>
+                </div><br>
+                <button id="playNormalTetrisBut" onclick="goPlayNormalTetris()">Play Normal Tetris</button>
+                <br> <br><br><br> <br><br>
+                <button id="playYourTetrisBut" onclick="goPlayTetris()">Play Your Tetris</button>
+                <br><br> <br><br>
+                <input type="number" id="supWidth" placeholder="Width" max="15" min="10" value="10" title="Board Width"><input type="number" id="supHeight" value="25" placeholder="Height" max="30" min="20" title="Board Height">
+            </div>
+            <div>
+                <span style="font-size: 40px; color: transparent; transition: 0.4s;" id="drawPieceText4x4">Draw your piece</span><br><br>
+                <div id="selector4x4">
+                    <button id="piece4x4_0" class="squares4x4" onclick="changePiece4x4(0)"></button>
+                    <button id="piece4x4_1" class="squares4x4" onclick="changePiece4x4(1)"></button>
+                    <button id="piece4x4_2" class="squares4x4" onclick="changePiece4x4(2)"></button>
+                    <button id="piece4x4_3" class="squares4x4" onclick="changePiece4x4(3)"></button><br>
+                    <button id="piece4x4_4" class="squares4x4" onclick="changePiece4x4(4)"></button>
+                    <button id="piece4x4_5" class="squares4x4" onclick="changePiece4x4(5)"></button>
+                    <button id="piece4x4_6" class="squares4x4" onclick="changePiece4x4(6)"></button>
+                    <button id="piece4x4_7" class="squares4x4" onclick="changePiece4x4(7)"></button><br>
+                    <button id="piece4x4_8" class="squares4x4" onclick="changePiece4x4(8)"></button>
+                    <button id="piece4x4_9" class="squares4x4" onclick="changePiece4x4(9)"></button>
+                    <button id="piece4x4_10" class="squares4x4" onclick="changePiece4x4(10)"></button>
+                    <button id="piece4x4_11" class="squares4x4" onclick="changePiece4x4(11)"></button><br>
+                    <button id="piece4x4_12" class="squares4x4" onclick="changePiece4x4(12)"></button>
+                    <button id="piece4x4_13" class="squares4x4" onclick="changePiece4x4(13)"></button>
+                    <button id="piece4x4_14" class="squares4x4" onclick="changePiece4x4(14)"></button>
+                    <button id="piece4x4_15" class="squares4x4" onclick="changePiece4x4(15)"></button>
+                    <br>
+                    <svg id="addPiece4x4" onclick="addpiece4x4()" height="60px" viewBox="0 0 512 512" width="60px">
+                        <path
+                            d="m368 272h-224c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h224c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
+                        <path
+                            d="m256 384c-8.832031 0-16-7.167969-16-16v-224c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v224c0 8.832031-7.167969 16-16 16zm0 0" />
+                        <path
+                            d="m453.332031 512h-394.664062c-32.363281 0-58.667969-26.304688-58.667969-58.667969v-394.664062c0-32.363281 26.304688-58.667969 58.667969-58.667969h394.664062c32.363281 0 58.667969 26.304688 58.667969 58.667969v394.664062c0 32.363281-26.304688 58.667969-58.667969 58.667969zm-394.664062-480c-14.699219 0-26.667969 11.96875-26.667969 26.667969v394.664062c0 14.699219 11.96875 26.667969 26.667969 26.667969h394.664062c14.699219 0 26.667969-11.96875 26.667969-26.667969v-394.664062c0-14.699219-11.96875-26.667969-26.667969-26.667969zm0 0" />
+                    </svg>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="flexShowPieces">
+            <span id="yourPieces">Draw your pieces, they go here!🐊</span>
+        </div> 
+        <br>     
+                <span style="font-family: Arial; color: darkblue; font-size: 24px;" id="credits">This is a js Tetris made by </span><a
+                    href="https://github.com/JorgeBaes/tetris" target="blank"
+                    style="font-family: Arial; color: rgb(88, 10, 10); font-size: 25px;">Jorge Baes</a>
+  
+    </div>
+    
+    <script>
+    const garbageSVG = `
+    <svg id="garbageCanSvg" height="50px" viewBox="-40 0 427 427.00131" width="50px"><path d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/><path d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/><path d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"/><path d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/></svg>`
+    const addPieceSVG = `
+    <svg height="30px" viewBox="0 0 512 512" width="30px"><path d="m368 272h-224c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h224c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"/><path d="m256 384c-8.832031 0-16-7.167969-16-16v-224c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v224c0 8.832031-7.167969 16-16 16zm0 0"/><path d="m453.332031 512h-394.664062c-32.363281 0-58.667969-26.304688-58.667969-58.667969v-394.664062c0-32.363281 26.304688-58.667969 58.667969-58.667969h394.664062c32.363281 0 58.667969 26.304688 58.667969 58.667969v394.664062c0 32.363281-26.304688 58.667969-58.667969 58.667969zm-394.664062-480c-14.699219 0-26.667969 11.96875-26.667969 26.667969v394.664062c0 14.699219 11.96875 26.667969 26.667969 26.667969h394.664062c14.699219 0 26.667969-11.96875 26.667969-26.667969v-394.664062c0-14.699219-11.96875-26.667969-26.667969-26.667969zm0 0"/></svg>`
+    const colorBackgroundSelected = 'black'//'rgb(100,200,255)'
+    const colorBackgroundNotSelected = 'white'//'rgb(255, 115, 115)'
+    function ArrEqualArr(arr1,arr2){
+        return arr1.length == arr2.length && arr1.every((el,index) => el == arr2[index] )
+    }
+    
+    const drawPieceText3x3 = document.querySelector('#drawPieceText3x3')
+    const selector3x3 = document.querySelector('#selector3x3')
+
+    selector3x3.addEventListener('mouseover',() => {
+        drawPieceText3x3.style.color = 'rgb(29, 29, 121)'
+    })
+    selector3x3.addEventListener('mouseout', () => {
+            drawPieceText3x3.style.color = 'transparent'
+    })
+
+    const drawPieceText4x4 = document.querySelector('#drawPieceText4x4')
+    const selector4x4 = document.querySelector('#selector4x4')
+
+    selector4x4.addEventListener('mouseover',() => {
+        drawPieceText4x4.style.color = 'rgb(29, 29, 121)'
+    })
+    selector4x4.addEventListener('mouseout', () => {
+            drawPieceText4x4.style.color = 'transparent'
+    })
+
+    const inputHeight = document.querySelector('#supHeight')
+    const inputWidth = document.querySelector('#supWidth')
+
+    const but3x3_0 = document.querySelector('#piece3x3_0')
+    const but3x3_1 = document.querySelector('#piece3x3_1')
+    const but3x3_2 = document.querySelector('#piece3x3_2')
+    const but3x3_3 = document.querySelector('#piece3x3_3')
+    const but3x3_4 = document.querySelector('#piece3x3_4')
+    const but3x3_5 = document.querySelector('#piece3x3_5')
+    const but3x3_6 = document.querySelector('#piece3x3_6')
+    const but3x3_7 = document.querySelector('#piece3x3_7')
+    const but3x3_8 = document.querySelector('#piece3x3_8')
+
+    const buttonsarray3x3 = [  but3x3_0, but3x3_1, but3x3_2, 
+                            but3x3_3, but3x3_4, but3x3_5, 
+                            but3x3_6, but3x3_7, but3x3_8, ]
+
+    const but4x4_0 = document.querySelector('#piece4x4_0')
+    const but4x4_1 = document.querySelector('#piece4x4_1')
+    const but4x4_2 = document.querySelector('#piece4x4_2')
+    const but4x4_3 = document.querySelector('#piece4x4_3')
+    const but4x4_4 = document.querySelector('#piece4x4_4')
+    const but4x4_5 = document.querySelector('#piece4x4_5')
+    const but4x4_6 = document.querySelector('#piece4x4_6')
+    const but4x4_7 = document.querySelector('#piece4x4_7')
+    const but4x4_8 = document.querySelector('#piece4x4_8')
+    const but4x4_9 = document.querySelector('#piece4x4_9')
+    const but4x4_10 = document.querySelector('#piece4x4_10')
+    const but4x4_11 = document.querySelector('#piece4x4_11')
+    const but4x4_12 = document.querySelector('#piece4x4_12')
+    const but4x4_13 = document.querySelector('#piece4x4_13')
+    const but4x4_14 = document.querySelector('#piece4x4_14')
+    const but4x4_15 = document.querySelector('#piece4x4_15')
+
+    const buttonsarray4x4 = [ but4x4_0, but4x4_1, but4x4_2, but4x4_3,
+                              but4x4_4, but4x4_5, but4x4_6, but4x4_7,
+                              but4x4_8, but4x4_9, but4x4_10, but4x4_11,
+                              but4x4_12, but4x4_13, but4x4_14, but4x4_15 ]                       
+    var array3x3 = new Array(9).fill().map( el => false)
+    var array4x4 = new Array(16).fill().map(el => false)
+
+    var arrayPieces =[]// [[0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1]]
+
+    const maxPieces = 9
+
+    const divFlexShowPieces = document.querySelector('.flexShowPieces')
+    function updateShowPieceDiv(){
+        divFlexShowPieces.innerHTML = ''
+        arrayPieces.forEach( (array, index) => {
+            const formatedArray = array.map(el => el ? 1 : 0) 
+            var stringDivs = ''
+            for (let i in formatedArray) {
+                const oneOrZeroSpot = formatedArray[i] == 1 ? 'oneSpot' : 'zeroSpot'
+                stringDivs += `<div class="${oneOrZeroSpot} part-of-array-of-lenght-${formatedArray.length}"></div>`
+            }
+            divFlexShowPieces.innerHTML +=
+                `
+                <div class="piece">
+                    <span onclick="deletePieceFromArray(${index})">${garbageSVG}</span><br><br>
+                <div class="showDivLen${formatedArray.length}">${stringDivs}</div>
+                </div>
+                `
+        })
+    }
+    // updateShowPieceDiv()
+    function changePiece3x3(index){
+        array3x3[index] = !array3x3[index] 
+        buttonsarray3x3.forEach( (button, ind) => {      
+            button.style.background = array3x3[ind]? colorBackgroundSelected: colorBackgroundNotSelected   
+        })
+
+    }
+    function addpiece3x3(){
+        const formatedArray = array3x3.map(el => el ? 1 : 0) 
+        if(arrayPieces.length >= maxPieces){
+            window.alert(`You can't add more than ${maxPieces} pieces`)
+            return
+        }
+        const thereisOneorMoreTrues = formatedArray.some(el => el == 1)
+        const isNotaRepeatedArray = arrayPieces.every(el => !ArrEqualArr(el,formatedArray))
+        if(thereisOneorMoreTrues && isNotaRepeatedArray){
+            array3x3 = new Array(9).fill().map(el => false)
+            buttonsarray3x3.forEach((button, ind) => {
+                button.style.background = array3x3[ind] ? colorBackgroundSelected : colorBackgroundNotSelected
+            })
+            console.log(arrayPieces)
+            arrayPieces.push(formatedArray)
+            updateShowPieceDiv()
+        }
+        if (!isNotaRepeatedArray) {
+            window.alert('Repeated Piece. That piece already exists')
+        }
+        
+    }
+    function changePiece4x4(index) {
+            array4x4[index] = !array4x4[index]
+            buttonsarray4x4.forEach((button, ind) => {
+                button.style.background = array4x4[ind] ? colorBackgroundSelected : colorBackgroundNotSelected
+            })
+
+        }
+    function addpiece4x4() {
+            const formatedArray = array4x4.map(el => el ? 1 : 0)
+            if (arrayPieces.length >= maxPieces) {
+                window.alert(`You can't add more than ${maxPieces} pieces`)
+                return
+            }
+            const thereisOneorMoreTrues = formatedArray.some(el => el == 1)
+            const isNotaRepeatedArray = arrayPieces.every(el => !ArrEqualArr(el, formatedArray))
+            if (thereisOneorMoreTrues && isNotaRepeatedArray) {
+                array4x4 = new Array(16).fill().map(el => false)
+                buttonsarray4x4.forEach((button, ind) => {
+                    button.style.background = array4x4[ind] ? colorBackgroundSelected : colorBackgroundNotSelected
+                })
+                arrayPieces.push(formatedArray)
+                updateShowPieceDiv()
+            }
+            if(!isNotaRepeatedArray){
+                window.alert('Repeated Piece. That piece already exists')
+            }
+    }
+    function fromDec_Bin_Hex(string){        
+        const decBinString = `1${(string.toString())}`
+        var stringInBin = ''
+        var numDec = 0 
+        for(let i = decBinString.length - 1; i >= 0; i--){
+            numDec += (decBinString.charAt(i))*2**(decBinString.length-1-i)
+        }
+        return numDec.toString(16)
+    }
+    function goPlayTetris(){
+        var stringCodigo = ''
+        arrayPieces.forEach(el => {
+            stringCodigo += `${fromDec_Bin_Hex(el.join(''))}%`        
+        })
+        stringCodigo += `&${Math.round(inputHeight.value)}&${Math.round(inputWidth.value)}`
+        if(arrayPieces.length!=0){
+            window.open(`playTetris.html#${stringCodigo}`)
+        }else{
+            window.alert('You must create your pieces')
+        }
+    }
+    function goPlayNormalTetris(){
+        window.open(`playTetris.html`)
+    }
+    function deletePieceFromArray(index){
+    
+        if(arrayPieces[index]){
+            arrayPieces.splice(index,1)
+            updateShowPieceDiv()
+        }
+        if(arrayPieces.length == 0){
+            divFlexShowPieces.innerHTML = `<span id="yourPieces">Draw your pieces, they go here!🐊</span>`
+        }
+    }
+</script>
+</body>
+</html>
