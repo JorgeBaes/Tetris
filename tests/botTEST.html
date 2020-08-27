@@ -326,7 +326,7 @@
 
         function fromHex_Dec_Bin(string) {
             const hexString = `${(string.toString())}`
-            
+
             const arrayOfHexaValues = {
                 "0": 0,
                 "1": 1,
@@ -348,37 +348,37 @@
             var numDec = 0
             for (let i = hexString.length - 1; i >= 0; i--) {
                 numDec += (arrayOfHexaValues[hexString.charAt(i)]) * 16 ** (hexString.length - 1 - i)
-            }            
+            }
             return numDec.toString(2)
         }
         function rotateClockwise(array) {
-                var a = array.map(el => el.slice())
-                var n = a.length;
-                for (var i = 0; i < n / 2; i++) {
-                    for (var j = i; j < n - i - 1; j++) {
-                        var tmp = a[i][j];
-                        a[i][j] = a[n - j - 1][i];
-                        a[n - j - 1][i] = a[n - i - 1][n - j - 1];
-                        a[n - i - 1][n - j - 1] = a[j][n - i - 1];
-                        a[j][n - i - 1] = tmp;
-                    }
+            var a = array.map(el => el.slice())
+            var n = a.length;
+            for (var i = 0; i < n / 2; i++) {
+                for (var j = i; j < n - i - 1; j++) {
+                    var tmp = a[i][j];
+                    a[i][j] = a[n - j - 1][i];
+                    a[n - j - 1][i] = a[n - i - 1][n - j - 1];
+                    a[n - i - 1][n - j - 1] = a[j][n - i - 1];
+                    a[j][n - i - 1] = tmp;
                 }
-                return a;
             }
-        function isNotHexaDecimalOrPorcentage(c){
-            const arrayOfPossibleCharacters = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','%','&']
+            return a;
+        }
+        function isNotHexaDecimalOrPorcentage(c) {
+            const arrayOfPossibleCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '%', '&']
             return !arrayOfPossibleCharacters.some(el => el == c)
         }
-        function getPieces(){
+        function getPieces() {
             var code = window.location.hash.slice(1)
             var codeArray = code.split('')
 
-            if(codeArray.indexOf('&')!=-1){
+            if (codeArray.indexOf('&') != -1) {
                 var dimensions = codeArray.splice(codeArray.indexOf('&')).slice(1)
-                var suposedHeight = parseInt ((dimensions.splice(0, dimensions.indexOf('&'))).join(''))
+                var suposedHeight = parseInt((dimensions.splice(0, dimensions.indexOf('&'))).join(''))
                 var suposedWidth = parseInt((dimensions.splice(1)).join(''))
-                if(!isNaN(suposedHeight) && !isNaN(suposedWidth)){
-                    if(20 <= suposedHeight && suposedHeight <= 30 && 10 <= suposedWidth && suposedWidth <= 15){
+                if (!isNaN(suposedHeight) && !isNaN(suposedWidth)) {
+                    if (20 <= suposedHeight && suposedHeight <= 30 && 10 <= suposedWidth && suposedWidth <= 15) {
                         matrixheight = suposedHeight
                         matrixWidth = suposedWidth
                     }
@@ -387,33 +387,33 @@
 
             var arrayOfPieces = []
 
-            if(codeArray.some( el => isNotHexaDecimalOrPorcentage(el))){
+            if (codeArray.some(el => isNotHexaDecimalOrPorcentage(el))) {
                 return [pieceOne, pieceTwo, pieceThree, pieceFour, pieceFive, pieceOneMod, pieceTwoMod]
             }
-            while(codeArray.indexOf('%') != -1){
-                const pieceCode = codeArray.splice(0 , codeArray.indexOf('%'))
+            while (codeArray.indexOf('%') != -1) {
+                const pieceCode = codeArray.splice(0, codeArray.indexOf('%'))
                 codeArray = codeArray.slice(1)
                 arrayOfPieces.push(fromHex_Dec_Bin(pieceCode.join('')).slice(1))
             }
 
-            if(arrayOfPieces.some(el =>( el.length != 9 && el.length != 16)) || !code){
+            if (arrayOfPieces.some(el => (el.length != 9 && el.length != 16)) || !code) {
                 return [pieceOne, pieceTwo, pieceThree, pieceFour, pieceFive, pieceOneMod, pieceTwoMod]
             }
 
-            arrayOfPieces = arrayOfPieces.map( el => { 
+            arrayOfPieces = arrayOfPieces.map(el => {
                 const sizeOfArray = Math.sqrt(el.length)
                 var newArray = []
                 var auxArray = []
-                for(let c in el){
+                for (let c in el) {
                     auxArray.push(parseInt(el[c]))
-                    if(auxArray.length == sizeOfArray){
+                    if (auxArray.length == sizeOfArray) {
                         newArray.push(auxArray)
                         auxArray = []
                     }
                 }
                 return newArray
             })
-            arrayOfPieces = arrayOfPieces.map(( el , index ) => {
+            arrayOfPieces = arrayOfPieces.map((el, index) => {
                 const thatPiece = {
                     stage_1: el,
                     stage_2: rotateClockwise(el),
@@ -426,7 +426,7 @@
                 return thatPiece
             })
             return arrayOfPieces
-            
+
         }
         const piecesArray = getPieces()
         const piecesArray2Player = piecesArray.map(el => clone_(el))//[pieceOnePlayer, pieceTwoPlayer, pieceThreePlayer, pieceFourPlayer, pieceFivePlayer, pieceOneModPlayer, pieceTwoModPlayer]
@@ -463,7 +463,7 @@
 
         const param = unit
 
-        
+
         function piece(piece, posX = ~~(matrixWidth / 2) - 1, posY = 0) {
             this.piece = piece
             this.posX = posX
@@ -714,12 +714,12 @@
         copyArray2D = arr => arr.map(arr_ => arr_.slice())
 
         function isPlaying(currentAudio) {
-                return currentAudio
-                    && currentAudio.currentTime > 0
-                    && !currentAudio.paused
-                    && !currentAudio.ended
-                    && currentAudio.readyState > 2;
-            }
+            return currentAudio
+                && currentAudio.currentTime > 0
+                && !currentAudio.paused
+                && !currentAudio.ended
+                && currentAudio.readyState > 2;
+        }
 
 
 
@@ -728,15 +728,15 @@
         function playAudioPiece() {
             const rand = Math.random()
             if (rand < 0.05) {
-                audioPiece.src = audioPath+'piece3.mp3'
+                audioPiece.src = audioPath + 'piece3.mp3'
             } else if (rand < 0.1) {
-                audioPiece.src = audioPath +'piece5.mp3'
+                audioPiece.src = audioPath + 'piece5.mp3'
             } else if (rand < 0.4) {
-                audioPiece.src = audioPath +'piece1.mp3'
+                audioPiece.src = audioPath + 'piece1.mp3'
             } else if (rand < 0.7) {
-                audioPiece.src = audioPath +'piece2.mp3'
+                audioPiece.src = audioPath + 'piece2.mp3'
             } else if (rand < 1) {
-                audioPiece.src = audioPath +'piece4.mp3'
+                audioPiece.src = audioPath + 'piece4.mp3'
             }
             if (soundON) {
                 audioPiece.play()
@@ -749,7 +749,7 @@
             if (contAudio == 4) {
                 contAudio = 0
             }
-            audioRowArray[contAudio].src = audioPath +`row${rand}.mp3`
+            audioRowArray[contAudio].src = audioPath + `row${rand}.mp3`
             if (soundON) {
                 audioRowArray[contAudio].play()
             }
@@ -761,7 +761,7 @@
 
         function playAudioEndGame() {
             const rand = 1 + ~~(Math.random() * 6)
-            audioEnd.src = audioPath +`gameOver${rand}.mp3`
+            audioEnd.src = audioPath + `gameOver${rand}.mp3`
             if (soundON) {
                 audioBegin.pause()
                 audioEnd.play()
@@ -770,7 +770,7 @@
 
         function playAudioStartGame() {
             const rand = 1 + ~~(Math.random() * 5)
-            audioBegin.src = audioPath +`gameStart${rand}.mp3`
+            audioBegin.src = audioPath + `gameStart${rand}.mp3`
             if (soundON) {
                 audioEnd.pause()
                 audioBegin.play()
@@ -782,7 +782,7 @@
             if (contAudioHover == 5) {
                 contAudioHover = 0
             }
-            hoverSoundArray[contAudioHover].src = audioPath +`hoverSound.mp3`
+            hoverSoundArray[contAudioHover].src = audioPath + `hoverSound.mp3`
             if (soundON) {
                 hoverSoundArray[contAudioHover].play()
             }
@@ -790,7 +790,7 @@
 
         function playSelect() {
             if (soundON) {
-                selectSound.src = audioPath +'select.mp3'
+                selectSound.src = audioPath + 'select.mp3'
                 selectSound.play()
             }
         }
@@ -798,7 +798,7 @@
         function playRowCompleted() {
             if (!isPlaying(rowCompletedSound)) {
                 const rand = 1 + ~~(Math.random() * 7)
-                rowCompletedSound.src = audioPath +`rowCompleted${rand}.mp3`
+                rowCompletedSound.src = audioPath + `rowCompleted${rand}.mp3`
                 if (soundON) {
                     rowCompletedSound.play()
                 }
@@ -806,10 +806,10 @@
         }
 
         function playBot() {
-            if(!isPlaying(botSound)){
+            if (!isPlaying(botSound)) {
                 const rand = 1 + ~~(Math.random() * 8)
                 const probability = Math.random()
-                botSound.src = audioPath +`bot${rand}.mp3`
+                botSound.src = audioPath + `bot${rand}.mp3`
                 if (soundON && probability < 0.1) {
                     botSound.play()
                 }
@@ -838,7 +838,7 @@
             { x: 130 + 110, y: cH - 55 - 75, w: 30 * 3.8 + 110, h: 35, status: 'showConfig' }, // allright
             { x: 10, y: cH - 55 - 75 - 90, w: 30 * 3.8 + 110, h: 35, status: 'showConfig' }, //turn180degree
             { x: 130 + 110, y: cH - 55 - 75 - 90, w: 30 * 3.8 + 110, h: 35, status: 'showConfig' }, // ghost   
-            { x: cW - 110, y: cH - 55 - 55, w: 100, h: 45, status: 'independent'}  //botVel         
+            { x: cW - 110, y: cH - 55 - 55, w: 100, h: 45, status: 'independent' }  //botVel         
         ]
 
         function checkHover() {
@@ -1319,7 +1319,7 @@
                     c.fillText('Speed Mode', 205, cH - 15)
                 }
             }
-            
+
             c.textBaseline = 'bottom'
             c.textAlign = 'end'
             if (soundON) {
@@ -1405,7 +1405,7 @@
 
         }
 
-       
+
 
         var counter = 0
         var IAVel = 1
@@ -1435,7 +1435,7 @@
                 IAPlay = request_Ia_1_move()
                 IAComputedPlay = true
             }
-            if (time % ~~(fallFps / (IAVel * 5 * 0.7)) == 0 && !gameOver && !gamePaused && initGame) {
+            if (!gameOver && !gamePaused && initGame) {
                 if (IAPlay.stage != gamePiece.piece.actualStage && IAComputedPlay && !IAAnimationFirstStep) {
                     turnClockWise()
                 } else {
@@ -1461,14 +1461,15 @@
                 }
 
             }
-            if ((time % ~~(fallFps / (IAVel * 12 * 0.7))) == 0) {
-                if (IAAnimationThirdStep) {
-                    movePieceOneRowDown()
-                }
-            }
-            if (time % ~~(fallFps) == 0 && !gameOver && !gamePaused && initGame) {
+            if (IAAnimationThirdStep) {
                 movePieceOneRowDown()
             }
+            if ((time % ~~(fallFps / (IAVel * 12 * 0.7))) == 0) {
+                
+            }
+            // if (time % ~~(fallFps) == 0 && !gameOver && !gamePaused && initGame) {
+            //     movePieceOneRowDown()
+            // }
             if (time % ~~(fallFps) == 0 && !gameOver2 && !gamePaused && initGame) {
                 movePieceOneRowDown_2()
             }
@@ -2219,222 +2220,164 @@
             return arrayToReturn
         }
 
+        function checkPontuation(matrix) {
+                var h = matrix.length
+                var w = matrix[0].length
+                var p = 1
+                var didRow = false
+                var p2 = 0
+                for (let y in matrix) {
+                    var rowCounter = 0
+                    for (let x in matrix[y]) {
+                        if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
+                            rowCounter++
+                        }
+                        if (matrix[y][x].pos == 0) {
+                            p += (parseInt(y))
+                        }
+                        if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
+                            p += (h - parseInt(y))
+                        }
+                        if (y < h - 1 && y > 4) {
+                            if (matrix[y][x].pos == 1 && matrix[parseInt(y) + 1][x].pos == 0) {
+                                var contHolesDownWards = 0
+                                var stopWhile = true
+                                while (parseInt(y) + contHolesDownWards < h - 1 && stopWhile) {
+                                    if (matrix[parseInt(y) + contHolesDownWards][x].pos == 1 &&
+                                        matrix[parseInt(y) + contHolesDownWards + 1][x].pos == 0) {
+                                        p += (contHolesDownWards + 3) * parseInt(y)
+                                    } else {
+                                        stopWhile = false
+                                    }
+                                    contHolesDownWards++
+                                }
+                            }
+                        }
+                        if (y < 4 && matrix[y][x].pos == 2) {
+                            p += 10000
+                        }
+                        if (y < h - 1 && 1 <= x && x <= w - 2) {
 
+                            //      else
+                            //    if(matrix[y][x].pos == 0 &&
+                            //       matrix[parseInt(parseInt(y) + 1)][x].pos == 2 &&
+                            //       matrix[parseInt(parseInt(y) - 1)][x].pos == 2 && 
+                            //       matrix[y][parseInt(parseInt(x) + 1)].pos == 2 && 
+                            //       matrix[y][parseInt(parseInt(x) - 1)].pos == 2 ){
+                            //           p += 10**5
+                            //     }
+                        }
+                    }
+                    if (rowCounter == w) {
+                        didRow = true
+                    }
+                }
+                if (didRow) {
+                    p = -1
+                }
+                return p
+            }
 
         // function checkPontuation(matrix) {
-        //         var h = matrix.length
-        //         var w = matrix[0].length
-        //         var p = 1
-        //         var didRow = false
-        //         var p2 = 0
-        //         for (let y in matrix) {
-        //             var rowCounter = 0
-        //             for (let x in matrix[y]) {
-        //                 if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
-        //                     rowCounter++
-        //                 }
-        //                 if (matrix[y][x].pos == 0) {
-        //                     p += (parseInt(y))
-        //                 }
-        //                 if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
-        //                     p += (h - parseInt(y))
-        //                 }
-        //                 if (y < h - 1 && y > 4) {
-        //                     if (matrix[y][x].pos == 1 && matrix[parseInt(y) + 1][x].pos == 0) {
-        //                         var contHolesDownWards = 0
-        //                         var stopWhile = true
-        //                         while (parseInt(y) + contHolesDownWards < h - 1 && stopWhile) {
-        //                             if (matrix[parseInt(y) + contHolesDownWards][x].pos == 1 &&
-        //                                 matrix[parseInt(y) + contHolesDownWards + 1][x].pos == 0) {
-        //                                 p += (contHolesDownWards + 3) * parseInt(y)
-        //                             } else {
-        //                                 stopWhile = false
-        //                             }
-        //                             contHolesDownWards++
+        //     var h = matrix.length
+        //     var w = matrix[0].length
+        //     var p = 1
+        //     var didRow = false
+        //     var p2 = 0
+        //     for (let y in matrix) {
+        //         var rowCounter = 0
+        //         for (let x in matrix[y]) {
+        //             if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
+        //                 rowCounter++
+        //             }
+
+        //             if (matrix[y][x].pos == 0) {
+        //                 p += (parseInt(y))
+        //             }
+        //             if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
+        //                 p += (h - parseInt(y))
+        //             }
+        //             if (matrix[y][x].pos == 1) {
+        //                 if (x == 0 && y > 3) {
+        //                     if (matrix[parseInt(y) - 1][x].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
+        //                     if (matrix[parseInt(y)][parseInt(x) + 1].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
+        //                 } else if (x == w - 1 && y > 3) {
+        //                     if (matrix[parseInt(y) - 1][x].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
+        //                     if (matrix[parseInt(y)][parseInt(x) - 1].pos == 2) {
+        //                         p -= 10 * (parseInt(y))
+        //                     }
+        //                 } else if (y > 3) {
+        //                     if (matrix[parseInt(y) - 1][x].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
+        //                     if (matrix[parseInt(y)][parseInt(x) - 1].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
+        //                     if (y != h - 1) {
+        //                         if (matrix[parseInt(y) + 1][x].pos == 2) {
+        //                             p -= (parseInt(y))
         //                         }
         //                     }
+        //                     if (matrix[parseInt(y)][parseInt(x) + 1].pos == 2) {
+        //                         p -= (parseInt(y))
+        //                     }
         //                 }
-        //                 if (y < 4 && matrix[y][x].pos == 2) {
-        //                     p += 10000
-        //                 }
-        //                 if (y < h - 1 && 1 <= x && x <= w - 2) {
+        //             }
 
-        //                     //      else
-        //                     //    if(matrix[y][x].pos == 0 &&
-        //                     //       matrix[parseInt(parseInt(y) + 1)][x].pos == 2 &&
-        //                     //       matrix[parseInt(parseInt(y) - 1)][x].pos == 2 && 
-        //                     //       matrix[y][parseInt(parseInt(x) + 1)].pos == 2 && 
-        //                     //       matrix[y][parseInt(parseInt(x) - 1)].pos == 2 ){
-        //                     //           p += 10**5
-        //                     //     }
+        //             if (y < h - 1 && y > 4) {
+        //                 if (matrix[y][x].pos == 1 && matrix[parseInt(y) + 1][x].pos == 0) {
+        //                     var contHolesDownWards = 0
+        //                     var stopWhile = true
+        //                     while (parseInt(y) + contHolesDownWards < h - 1 && stopWhile) {
+        //                         if (matrix[parseInt(y) + contHolesDownWards][x].pos == 1 &&
+        //                             matrix[parseInt(y) + contHolesDownWards + 1][x].pos == 0) {
+        //                             p += (contHolesDownWards + 3) * parseInt(y)
+        //                         } else {
+        //                             stopWhile = false
+        //                         }
+        //                         contHolesDownWards++
+        //                     }
         //                 }
         //             }
-        //             if (rowCounter == w) {
-        //                 didRow = true
+        //             if (y < 4 && matrix[y][x].pos == 2) {
+        //                 p += 10000
+        //             }
+        //             if (y < h - 1 && 1 <= x && x <= w - 2) {
+
         //             }
         //         }
-        //         if (didRow) {
-        //             p = -1
+        //         if (rowCounter == w) {
+        //             didRow = true
         //         }
-        //         return p
         //     }
-        
+        //     if (didRow) {
+        //         p = -1
+        //     }
+        //     return p
+        // }
 
-        /*
-        OLHA AQUI NATE
-        abaporu engirafado
-        A FUNÇÃO CHECKPONTUATION É A QUE CHECA A PONTUAÇÃO DAS POSIÇÕES POSÍVEIS.
-        ENTÃO PARA MUDAR A "INTELIGENCIA BASTA MUDAR O RETORNO DESTA FUNCAO"
-        ABAIXO EU EXPLICO COMO ELA FUNCIONA
-        */
-        function checkPontuation(matrix) {
-            /*
-             TEMOS NO COMEÇO AS DECLARAÇÕES DE VARIÁVEIS
-             h é uma variável que corresponde à altura da matrix do jogo
-             w é uma variável que corresponde ao comprimento da matrix do jogo
-             ** A VARIAVEL 'p' é a mais importante, é a variavel que armazena a pontuação
-             ** ESTA FUNÇÃO DEVE SEMPRE RETORNAR A VARIAVEL 'p', e 'p' tem que ser do tipo number
-             a variavel didRow é um boleano que diz se existe uma fileira completa
-            */
-            // O ALGORITMO QUE CHECKA A MELHOR PONTUAÇÃO É BASEADO NO MENOR NÚMERO.
-            // ENTÃO É IMPORTANTE SABER QUE QUANTO MENOR O NÚMERO MELHOR SUA PONTUAÇÃO
-            // O PROGRAMA ESCOLHE A PONTUAÇÃO COM MENOR NÚMERO
-            var h = matrix.length
-            var w = matrix[0].length
-            var p = 1
-            var didRow = false
-
-            /*
-            **ESTE FOR É IMPORTANTE
-            ele percorre a matriz 2x2 do jogo
-            então ele checa na seguinte ordem: 
-            11,12,13,14,15,16,17...
-            21,22,23,24,25,26,27...
-            31,32,33,34,35,36,37...
-            O PRIMEIRO DÍGITO CORRESPONDE AO Y E O SEGUNDO AO X
-            A PROPIEDADE pos DO OBJETO matrix[x][y] DIZ O ESTADO DA POSIÇÃO xy
-            EXEMPLO:            
-            matrix[0][9].pos == 0 SIGNIFICA QUE NA POSIÇÃO 09 ESTÁ UM QUADRADINHO VAZIO
-            matrix[2][1].pos == 1 SIGNIFICA QUE NA POSIÇÃO 21 ESTÁ UM QUADRADINHO DA PEÇA CANDIDATA A SER COLOCADA NA MATRIZ
-            matrix[6][2].pos == 2 SIGNIFICA QUE NA POSIÇÃO 62 ESTÁ UM QUADRADINHO QUE JÁ ESTÁ OCUPADO POR UMA PEÇA NA MATRIZ
-
-            0 - QUADRADO VAZIO
-            1 - QUADRADO DA PEÇA CANDIDATA
-            2 - QUADRADO JÁ OCUPADO POR PEÇA 
-
-            */
-            for (let y in matrix) {
-                var rowCounter = 0
-                for (let x in matrix[y]) {
-
-                    // ESTA CONDICAO IF É IMPORTANTE PARA VERIFICAR SE EXISTE UMA FILEIRA COMPLETA
-                    if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
-                        rowCounter++
-                    }
-
-                    // ESTE IF CHECA SE NA POSIÇÃO xy O QUADRADO ESTÁ VAZIO
-                    // REPARE QUE SE ESTIVER VAZIO p é incrementado de acordo com o y
-                    // portanto quanto mais no topo este quadrado estiver, menor a pontuação, o que significa que a posição tem uma pontuação melhor
-                    /*
-                    Exemplo: peça vazia em 06 vale mais doque peça vazia em 92, 
-                    */
-                    if (matrix[y][x].pos == 0) {
-                        p += (parseInt(y))
-                    }
-
-                    // ESTE IF CHECA SE NA POSIÇÃO xy O QUADRADO ESTÁ OCUPADO TANTO PELA PEÇA CANDIDATA OU POR UMA PEÇA JÁ COLOCADA
-                    // REPARE QUE SE ESTIVER OCUPADO p é incrementado de acordo com o (h - y)
-                    // portanto quanto mais no topo este quadrado estiver, maior a pontuação, o que significa que a posição tem pontuação pior
-                    /*
-                    Exemplo: peça ocupada em 06 vale bem menos doque peça ocupada em 92,
-                    */
-                    if (matrix[y][x].pos == 2 || matrix[y][x].pos == 1) {
-                        p += (h - parseInt(y))
-                    }
-
-                    /*
-                    ESTE BLOCO GRANDE DE IF CHECA SE NOS QUADRADOS ADJACENTES ESTÁ PRESENTE UMA PEÇA COLOCADA
-                    e p é decrementado se tiver, pois isto indica que existe ponto de contato. 
-                    Lembrando que quando menor for 'p' melhor a pontuação
-                                        
-                    */
-                    if(matrix[y][x].pos == 1){
-                        if(x == 0 && y > 3){
-                            if(matrix[parseInt(y) - 1][x].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                            if(matrix[parseInt(y)][parseInt(x)+1].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                        }else if(x == w - 1 && y > 3){
-                            if(matrix[parseInt(y) - 1][x].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                            if(matrix[parseInt(y)][parseInt(x)-1].pos == 2){
-                                p -= 10*(parseInt(y))
-                            }
-                        } else if(y > 3){
-                            if(matrix[parseInt(y) - 1][x].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                            if(matrix[parseInt(y)][parseInt(x)-1].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                            if( y != h - 1){
-                                if(matrix[parseInt(y) + 1][x].pos == 2){
-                                    p -= (parseInt(y))
-                                }
-                            }
-                            if(matrix[parseInt(y)][parseInt(x)+1].pos == 2){
-                                p -= (parseInt(y))
-                            }
-                        }
-                    }
-
-                    /*
-                    ESTE BROCO CHECA SE EXISTE UM BURACO EM BAIXO DO QUADRADO ANALIZADO 
-                    (matrix[y][x].pos == 1 && matrix[parseInt(y) + 1][x].pos == 0) ou seja 
-                    o quadrado em questão é da peça candidata EE o quadrado debaixo (y+1,x) é vazio
-                    SE ISSO FOR VERDADE, ELE COMEÇA UMA CONTAGEM PARA VER QUANTOS QUADRADOS VAZIOS
-                    EXISTEM ABAIXO DO QUADRADO VAZIO, E VAI AUMENTANDO O VALOR DE 'p'.
-                    Ou seja quanto mais buraco CONSECUTIVO tiver em baixo do quadrado em questão maior a pontuação
-                    que no fim das contas resulta numa pior pontuação
-                    */
-                    if (y < h - 1 && y > 4) {
-                        if (matrix[y][x].pos == 1 && matrix[parseInt(y) + 1][x].pos == 0) {
-                            var contHolesDownWards = 0
-                            var stopWhile = true
-                            while (parseInt(y) + contHolesDownWards < h - 1 && stopWhile) {
-                                if (matrix[parseInt(y) + contHolesDownWards][x].pos == 1 &&
-                                    matrix[parseInt(y) + contHolesDownWards + 1][x].pos == 0) {
-                                    p += (contHolesDownWards + 3) * parseInt(y)
-                                } else {
-                                    stopWhile = false
-                                }
-                                contHolesDownWards++
-                            }
-                        }
-                    }
+/*
 
 
-                    // ESSE IF TA FALANDO O SEGUINTE, se a peça candidata tiver lá no topo NÃO coloca ela de jeito nenhum
-                   //  p+=100000
-                    if (y < 4 && matrix[y][x].pos == 1) {
-                        p += 10000
-                    }
-                }
+MELHOR MÉTODO :: O QUE CHECA PROXIMIDADE DO BLOCO 1 AO BLOCO 2, SE É ADJACENTE
+O OUTRO MÉTODO:: QUANTO MAIS PRÓXIMO DO SOLO MELHOR
 
-                // ESTA CONDICAO IF É IMPORTANTE PARA VERIFICAR SE EXISTE UMA FILEIRA COMPLETA
-                if (rowCounter == w) {
-                    didRow = true
-                }
-            }
-            if (didRow) {
-                p = -1
-            }
-            // ESSA FUNÇÃO OBRIGATORIAMENTE TEM QUE RETORNAR 'p'
-            return p
-        }
+MÉDIA DE PONTOS ::
+CHECKA ADJACENTE -- 217.6 PEÇAS E 70 FILEIRAS
+CHECKA DO SOLO   -- 198.75 PEÇAS E 62.5 FILEIRAS
+
+## UM COMENTÁRIO É QUE NO PIOR MÉTODO, O DO SOLO, TEVE UMA RODADA QUE O PC FEZ 548 PEÇAS E 203 FILEIRAS.
+
+## FORAM TESTADAS 12 VEZES DE CADA MÉTODO
+
+*/
+
 
         function checkHigherPontuation(possibleMoves) {
             var highestPontuation = { val: Infinity, posX: 0, stage: 'stage_1' }
@@ -2525,7 +2468,7 @@
             if (k == ' ') {
                 if (initGame == false) {
                     timer = new Date().getTime()
-                    audioBegin.src = audioPath +`gameStart${6}.mp3`
+                    audioBegin.src = audioPath + `gameStart${6}.mp3`
                     if (soundON) {
                         audioBegin.play()
                     }
@@ -2665,9 +2608,9 @@
                 soundON = !soundON
                 playSelect()
             }
-            if(onhover(posX, posY, cW - 110, cH - 55 - 55, 100, 45)){
+            if (onhover(posX, posY, cW - 110, cH - 55 - 55, 100, 45)) {
                 IAVel++
-                if(IAVel == 6){
+                if (IAVel == 6) {
                     IAVel = 1
                 }
             }
